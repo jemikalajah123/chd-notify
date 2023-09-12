@@ -96,7 +96,7 @@ jobs:
       - name: Update deployment file
         run: |
           TAG=$(echo $GITHUB_SHA | head -c7)
-          sed -i 's|<IMAGE>|investnaija/stage/notificationbe:'${TAG}'|' $GITHUB_WORKSPACE/config/staging-deployment.yml
+          sed -i 's|<IMAGE>|159428068786.dkr.ecr.eu-west-2.amazonaws.com/investnaija/stage/notificationbe:'${TAG}'|' $GITHUB_WORKSPACE/config/staging-deployment.yml
 
       - name: Deploy to AWS EKS
         run: |
@@ -120,18 +120,18 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: "AKIASKHVHIWZJOGEQDOW"
+          aws-secret-access-key: "TaTLYzXKUYUbZKVRL0lsdxkAYHJS0vdJqcDLYYro"
           aws-region: eu-west-2  # Replace with your desired AWS region
 
       - name: Update deployment file
         run: |
           TAG=$(echo $GITHUB_SHA | head -c7)
-          sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/production/notificationbe:'${TAG}'|' $GITHUB_WORKSPACE/config/prod-deployment.yml
+          sed -i 's|<IMAGE>|159428068786.dkr.ecr.eu-west-2.amazonaws.com/investnaija/production/notificationbe:'${TAG}'|' $GITHUB_WORKSPACE/config/prod-deployment.yml
 
       - name: Deploy to AWS EKS
         run: |
-          aws eks update-kubeconfig --name ${{ secrets.CLUSTER_NAME }} --region eu-west-2  # Replace with your EKS cluster name and region
+          aws eks update-kubeconfig --name prod-chd --region eu-west-2  # Replace with your EKS cluster name and region
           kubectl apply -f $GITHUB_WORKSPACE/config/prod-deployment.yml
 
       - name: Verify deployment
