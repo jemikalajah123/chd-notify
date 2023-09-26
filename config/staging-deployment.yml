@@ -36,7 +36,37 @@ spec:
         - name: NODE_ENV
           value: "staging"
         - name: PORT
-          value: "8084"                                    
+          value: "8084" 
+        - name: MAIL_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: notify-service-mail-key
+              key: MAIL_API_KEY
+        - name: MAIL_DOMAIN
+          valueFrom:
+            secretKeyRef:
+              name: notify-service-mail-domain
+              key: MAIL_DOMAIN
+        - name: SMS_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: notify-service-sms-key
+              key: SMS_API_KEY
+        - name: MANDRILL_KEY
+          valueFrom:
+            secretKeyRef:
+              name: notify-service-mandrill-key
+              key: MANDRILL_KEY
+        - name: AUTH_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: user-service-db-secret
+              key: database
+        - name: DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: notify-service-db-secret
+              key: database                                  
 ---
 apiVersion: v1
 kind: Service
